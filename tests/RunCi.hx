@@ -550,11 +550,8 @@ class RunCi {
 					}
 
 					if (Sys.getEnv("TRAVIS_SECURE_ENV_VARS") == "true" && systemName == "Linux") {
-						//https://saucelabs.com/opensource/travis
+						runCommand("travis_start_sauce_connect", []);
 						runCommand("npm", ["install", "wd", "q"], true);
-						runCommand("wget", ["-nv", "https://gist.github.com/santiycr/5139565/raw/sauce_connect_setup.sh"], true);
-						runCommand("chmod", ["a+x", "sauce_connect_setup.sh"]);
-						runCommand("./sauce_connect_setup.sh", []);
 						haxelibInstallGit("dionjwa", "nodejs-std", "master", null, true, "nodejs");
 						runCommand("haxe", ["compile-saucelabs-runner.hxml"]);
 						var server = new Process("nekotools", ["server"]);
